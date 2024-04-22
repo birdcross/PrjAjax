@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+  $(function() {
+	$('div').on('click', function(e){
+		//console.dir('e.target.innerHTML');
+		//console.dir(this.innerHTML); 
+		console.dir($(this));//jquery css() 함수가 있다
+		//console.dir(this)); //jquery css() 함수가 없다
+		//this.style.color = 'red';
+		$(this).css('color', 'red');// error : this.css is not a function
+		//e.target.style.color = 'red';
+		
+	})
+  })
+</script>
+</head>
+<body>
+	<div>div1</div>
+	<div>div2</div>
+	<div>div3</div>
+	<div>div4</div>
+</body>
+</html>
