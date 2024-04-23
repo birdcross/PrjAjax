@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+	//객체 생성자 함수 : class 문법 이전에 사용 했던 생성자 문법
+	function Student(num, name, kor, eng, mat){
+		this.num = num;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.mat = mat;
+		getTot = function(){
+			return this.kor + this.eng + this.mat;
+		}
+		getAvg = function(){
+			return (this.kor + this.eng + this.mat)/3;
+		}
+	}
+	// 성적객체 배열 생성
+	let students = []; //배열 생성
+	// 이벤트 핸들러 : 이벤트와 연결된 함수
+	$(function() {
+		$('button').on('', function(){
+			students.push() //push() 배열을 값을 저장
+		})
+	})
+</script>
+</head>
+<body>
+	<fieldset>
+		<legend>성적처리</legend>
+		번호:<input type = "text" id ="num" /> <br>
+		이름:<input type = "text" id ="name" /> <br>
+		국어:<input type = "number" id ="kor" min = "0" max = "100" value = "100" /> <br>
+		영어:<input type = "number" id ="eng" min = "0" max = "100" value = "100" /> <br>
+		수학:<input type = "number" id ="mat" min = "0" max = "100" value = "100" /> <br>
+	<button>Save</button>
+	</fieldset>
+</body>
+</html>
