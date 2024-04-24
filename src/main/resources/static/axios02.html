@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<button>ALbum List</button>
+	<div id = "output1"></div>
+	<hr>
+		<button>ALbum</button>
+	<div id = "output2"></div>
+	
+<script>
+	function jsontohtml( dataList ){
+		let tag = '';
+		dataList.forEach((data,i) => {
+			tag += `<ul>
+				<li>albumId: ${data.albumId}</li>
+				<li>id: ${data.id}</li>
+				<li>title: ${data.title}</li>
+				<li>
+				<img src="${data.url}" alt=""/>
+				</li>
+				<li>
+				<img src="${data.thumbnailUrl}" alt=""/>
+				</li>
+			</ul>`
+
+		});
+		return tag;		
+	}
+	//ALbum List
+	const btnEls = document.querySelectorAll('button')
+	btnEls[0].addEventListener('click', () =>{
+		let url = 'https://jsonplaceholder.typicode.com/photos'
+		axios.get(url)
+		.then(function(response){
+			console.dir(response);
+			console.log(response.data)  
+			let dataList = response.data;
+			dataList.forEach((data)=>{
+				let html = jsontohtml( dataList );
+				const outputEl = document.querySelector('#output1')
+				outputEl.innerHTML = html
+			});
+
+		})
+			.catch(function(error){
+				console.log(error)
+		})
+			  .finally(function () {
+				  console.log("항상실행")
+		})
+	});
+		//ALbum
+	btnEls[0].addEventListener('click', () =>{
+			
+	});
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
