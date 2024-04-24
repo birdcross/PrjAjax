@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
+	ul{ 
+		list-style: none;
+		border : 1px solid #333;
+		margin : 20px;
+		padding : 10px;
+		float : left;
+		border-radius : 10px;
+	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -12,14 +19,15 @@
 	<button>ALbum List</button>
 	<div id = "output1"></div>
 	<hr>
-		<button>ALbum</button>
-	<div id = "output2"></div>
-	
+	<button id = "btnPrev"> &lt </button>
+	<input type = "number" id = "num" value = "1" min ="1" max = "5000">
+	<button id = "btnNext"> &gt </button>
+	<div id = "output2">
+	</div>
 <script>
-	function jsontohtml( dataList ){
+	function jsontohtml( data ){
 		let tag = '';
-		dataList.forEach((data,i) => {
-			tag += `<ul>
+		tag += `<ul>
 				<li>albumId: ${data.albumId}</li>
 				<li>id: ${data.id}</li>
 				<li>title: ${data.title}</li>
@@ -30,8 +38,6 @@
 				<img src="${data.thumbnailUrl}" alt=""/>
 				</li>
 			</ul>`
-
-		});
 		return tag;		
 	}
 	//ALbum List
@@ -43,11 +49,12 @@
 			console.dir(response);
 			console.log(response.data)  
 			let dataList = response.data;
+			let html = '';
 			dataList.forEach((data)=>{
-				let html = jsontohtml( dataList );
-				const outputEl = document.querySelector('#output1')
-				outputEl.innerHTML = html
+				html += jsontohtml( data);
 			});
+			const outputEl = document.querySelector('#output1')
+			outputEl.innerHTML = html
 
 		})
 			.catch(function(error){
@@ -58,7 +65,42 @@
 		})
 	});
 		//ALbum
-	btnEls[0].addEventListener('click', () =>{
+	const btnPrevEl = document.querySelector('#btnPrev')
+	const btnNextEl = document.querySelector('#btnNext')
+	const numEl = document.querySelector('#num')
+	const output2El = document.querySelector('#output2')
+	numEl.addEventListener('change', () => {
+    console.log(numEl.value);
+    // URL 수정: numEl.value 앞에 '/' 추가
+    let url = 'https://jsonplaceholder.typicode.com/photos/' + numEl.value;
+    axios.get(url)
+        .then((resp) => {
+            let data = resp.data;
+            let html = "<fieldset>";
+            html += "<legend>Album</legend>";
+            html += jsontohtml(data); // 데이터를 HTML로 변환
+            html += "</fieldset>";
+            output2El.innerHTML = html;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            console.log("항상 실행");
+        });
+});
+
+	btnPrevEl.addEventListener('click', () =>{
+		let num = parseInt(numEl.value);
+		num = num - 1;
+		if (num < 1) num = 1;
+			numEl.value = num;
+	});
+	btnNextEl.addEventListener('click', () =>{
+		let num = parseInt(numEl.value);
+		num = num + 1;
+		if (num > 5000) num = 5000;
+			numEl.value = num;
 			
 	});
 
