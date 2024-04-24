@@ -95,13 +95,15 @@
 		num = num - 1;
 		if (num < 1) num = 1;
 			numEl.value = num;
+			numEl.dispatchEvent(new Event('change'));
+			
 	});
 	btnNextEl.addEventListener('click', () =>{
 		let num = parseInt(numEl.value);
 		num = num + 1;
 		if (num > 5000) num = 5000;
 			numEl.value = num;
-			
+			numEl.dispatchEvent(new Event('change'));
 	});
 
 </script>
