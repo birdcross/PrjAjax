@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<button>Ok</button>
+	<div id = "output"></div>
+	
+	<script>
+		const btnOkEl = document.querySelector('button')
+		btnOkEl.addEventListener('click', function(e){
+			//alert('ok');
+       		console.dir(axios);
+			let url = 'https://reqres.in/api/users?page=2'
+			axios.get(url)
+			.then(function(response){
+				// axios 는 버결과({})에 항목(객에)을 추가한다.
+				// 실제 도착한 데이터는 response.data 안에 존재
+				console.log(response.data)  
+				let total = response.data.total;
+				let page = response.data.page;
+				const outputEl = document.querySelector('#output')
+				outputEl.innerHTML = '총페이지' + total + "<br>" + "현재 페이지: " + page
+			})
+			.catch(function(error){
+				console.log(error)
+			})
+			  .finally(function () {
+				  console.log("항상실행")
+			})
+		});
+		
+	</script>
+</body>
+</html>
